@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:paddingBottom="@dimen/activity_vertical_margin" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:ads="http://schemas.android.com/apk/res-auto">
+    <ScrollView android:id="@id/scrollView3" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginBottom="10.0dip" android:layout_above="@id/adBanner" android:layout_alignParentTop="true" android:layout_alignParentStart="true">
+        <RelativeLayout android:id="@id/pdRelLayout" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <de.hdodenhof.circleimageview.CircleImageView android:id="@id/pdAvatarImg" android:layout_width="50.0dip" android:layout_height="55.0dip" android:layout_margin="8.0dip" android:layout_marginLeft="8.0dip" android:src="@drawable/logo" android:scaleType="centerCrop" />
+            <TextView android:textStyle="bold" android:textColor="#ff333333" android:gravity="center_vertical" android:id="@id/pdFullNametxt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="2.0dip" android:layout_marginRight="60.0dip" android:text="loading..." android:layout_alignTop="@id/pdAvatarImg" android:layout_alignBottom="@id/pdAvatarImg" android:layout_toEndOf="@id/pdAvatarImg" />
+            <Button android:textColor="@android:color/transparent" android:id="@id/pdFollowButt" android:background="@drawable/follow_butt" android:layout_width="44.0dip" android:layout_height="44.0dip" android:text="unfollow" android:layout_alignTop="@id/pdFullNametxt" android:layout_alignParentEnd="true" />
+            <ImageView android:id="@id/pdImage" android:layout_width="fill_parent" android:layout_height="200.0dip" android:layout_margin="8.0dip" android:src="@drawable/demo_img" android:scaleType="centerCrop" android:layout_below="@id/pdAvatarImg" android:layout_centerHorizontal="true" />
+            <TextView android:textSize="12.0dip" android:textColor="#ff333333" android:id="@id/pdPostText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="loading..." android:layout_below="@id/pdImage" android:layout_alignStart="@id/pdImage" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/buttonsLayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dip" android:layout_below="@id/pdPostText" android:layout_alignStart="@id/pdPostText">
+                <Button android:id="@id/pdLikeButt" android:background="@drawable/unliked_butt" android:layout_width="44.0dip" android:layout_height="44.0dip" />
+                <TextView android:textColor="#fff69679" android:id="@id/pdLikesTxt" android:layout_width="20.0dip" android:layout_height="wrap_content" android:layout_marginLeft="-5.0dip" android:text="0" />
+                <Button android:id="@id/pdShareButt" android:background="@drawable/share_butt" android:layout_width="44.0dip" android:layout_height="44.0dip" android:layout_marginLeft="15.0dip" />
+                <Button android:id="@id/pdCommentButt" android:background="@drawable/comment_butt" android:layout_width="44.0dip" android:layout_height="44.0dip" android:layout_marginLeft="15.0dip" />
+                <Button android:id="@id/pdReportButt" android:background="@drawable/report_butt" android:layout_width="44.0dip" android:layout_height="44.0dip" android:layout_marginLeft="15.0dip" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <LinearLayout android:orientation="vertical" android:id="@id/prevLayout" android:background="#ff222222" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="2000.0dip">
+        <TextView android:textSize="12.0dip" android:textColor="#fff1f1f1" android:id="@id/textView9" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:text="Tap to close" android:textAlignment="center" />
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/prevImg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="10.0dip" />
+    </LinearLayout>
+    <ImageView android:id="@id/adBanner" android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/bannerad" android:layout_alignParentTop="@id/prevLayout" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+</RelativeLayout>
