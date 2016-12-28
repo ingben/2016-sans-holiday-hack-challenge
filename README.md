@@ -288,11 +288,60 @@ in this room.
 
 ![Elf House #2 Inside Second Room](screens/heatsink-location.png)
 
-Left to me, there lies the heatsink. Go collect it.
+On the left of the position of my avatar, there lies a heatsink. Go collect it.
+We will need it later on to assemble our Cranberry Pi.
 
 Next, head over all the way to the left until you reach this house.
 
 ![Elf House #1 Outside](screens/elf-house-1.png)
+
+Enter it. Then talk to Sugarplum Mary.
+
+![Sugarplum Mary](screens/sugarplum-mary-1.png)
+
+She is a PHP developer (and apparently loves it). You will get a link to another
+[SANS website](https://pen-testing.sans.org/blog/2016/12/07/getting-moar-value-out-of-php-local-file-include-vulnerabilities)
+which is about PHP local file inclusion vulnerabilities.
+
+Besides PHP stuff, there is also a secret in this room. You can just walk through
+the fireplace and enter a small chamber. There you will find the Cranberry PI board.
+
+![Cranberry Pi Board Location](screens/pi-board-location.png)
+
+Heading back all the way to the right, you will find the big tree.
+
+![The Big Tree](screens/the-big-tree-1.png)
+
+Inside, you will find Tom Hessman who apparently is an oracle.
+
+![Tom Hessman](screens/tom-hessman-1.png)
+
+He offers you to tell you whether a certain IP address is in scope or not. I guess this is a safety net so that SANS cannot be blamed for people going crazy with offensive security while blaming the SANS holiday hack challenge :D
+
+If we go further north, there is a snow man. He holds a power cord, which we can collect.
+
+![Snow man power cord](screens/power-cord-location.png)
+
+Up the three, you will enter the NetWars room.
+
+![NetWars](screens/netwars-1.png)
+
+You can leave it on the right side. Follow the path and enter the next house.
+
+![Small Tree House](screens/small-tree-house-1.png)
+
+Minty Candycane is the NPC. She talks about tools such as NMAP, John the Ripper
+and also provides a link to the [RockYou dictionary](https://wiki.skullsecurity.org/index.php?title=Passwords).
+
+Exit the house again and continue to follow the path. You will go up all the way
+to the top of a mountain.
+
+![Bushy Evergreen](screens/bushy-evergreen-1.png)
+
+Talk to Bushy Evergreen on the right. He will provide you with two links regarding Android hacking ([here](https://ibotpeaches.github.io/Apktool/) and [here](https://www.youtube.com/watch?v=mo2yZVRicW0)).
+
+
+
 
 ### 1) What is the secret message in Santa's tweets?
 
