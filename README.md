@@ -249,6 +249,51 @@ ELFCHRISTMASSANTASANTASANTAJOYQQWWWWQWGOODWILLTOWARDSMENJOYELFQWCHRISTMASQQ
 
 This allows us to answer the first question: BUGBO.
 
+Next, it is time to take a first step outside (through the weird looking sack).
+
+![A first look outside](screens/outside-first-time.png)
+
+The next question is about a ZIP file. So in order to make progress, we started
+to walk around and literally speak to anybody there is.
+
+First, we talked to Holly Evergreen. She said something about missing pieces that
+fell of Santa's sleigh, that we need to talk to the Oracle, and that basically
+all of Santa's bug bounty elves are on SantaGram.
+
+Heading towards the left, you will find Sparkle Redberry.
+
+![Sparkle Redberry](screens/sparkle-1.png)
+
+He tells you about the NetWars challenge coins. To gather all of them is a new
+quest which you receive from him. Since they do not contribute to the answering
+of the questions, we will omit these coins for the rest of the write-up.
+
+If you cross the bridge to the north (and keep going north a bit), you will run
+into Wunorse Openslae.
+
+![Wunorse Openslae](screens/wunorse-openslae-1.png)
+
+She mentions that Santa's sleigh is managed by a SCADA interface, for which you
+need a Cranberry Pi with a Cranbian Linux. You get a link to a [SANS website](https://pen-testing.sans.org/blog/2016/12/07/mount-a-raspberry-pi-file-system-image)
+which details how to mount a raspberry pi image. As of SantaGram, you get the intel
+that it is popular, and a hashtag: `#elflife!`.
+
+If you back off to the bridge again, and then go to the right, you will be able
+to enter `Elf House #2`.
+
+![Elf House #2 Outside](screens/elf-house-2.png)
+
+Enter it, go up the stairs and through the doorway, and you will find yourself
+in this room.
+
+![Elf House #2 Inside Second Room](screens/heatsink-location.png)
+
+Left to me, there lies the heatsink. Go collect it.
+
+Next, head over all the way to the left until you reach this house.
+
+![Elf House #1 Outside](screens/elf-house-1.png)
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBO
