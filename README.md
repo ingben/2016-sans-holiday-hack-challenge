@@ -575,7 +575,7 @@ grep -C3 -rin "password" .
 [...]
 ```
 
-Inspecting the file, we get the next flag: username=guest, password=busyreindeer78.
+Inspecting the file, we get the next flag: `username=guest`, `password=busyreindeer78`.
 
 ### 1) What is the secret message in Santa's tweets?
 
