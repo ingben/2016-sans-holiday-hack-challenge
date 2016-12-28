@@ -6,6 +6,10 @@ This is a write-up for the [2016 SANS Holiday Hack Challenge](https://holidayhac
 
 ## Part 1: A Most Curious Business Card
 
+You start of in a room. Talk to Jessica and Josh. Browse the room for Santa's business card.
+
+![Santa's business card](screens/sans-1.png)
+
 ### 1) What is the secret message in Santa's tweets?
 
 ### 2) What is inside the ZIP file distributed by Santa's team?
