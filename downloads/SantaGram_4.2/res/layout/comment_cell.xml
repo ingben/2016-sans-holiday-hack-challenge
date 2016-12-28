@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <de.hdodenhof.circleimageview.CircleImageView android:id="@id/cAvatarImg" android:layout_width="50.0dip" android:layout_height="50.0dip" android:layout_margin="8.0dip" android:layout_marginLeft="8.0dip" android:src="@drawable/logo" />
-    <TextView android:textSize="14.0dip" android:textColor="#ff111111" android:id="@id/cFullNameTxt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="20.0dip" android:text="loading..." android:layout_alignTop="@id/cAvatarImg" android:layout_toStartOf="@id/cDateTxt" android:layout_alignStart="@id/cCommentTxt" />
-    <TextView android:textSize="11.0dip" android:textColor="#ff444444" android:id="@id/cCommentTxt" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_marginRight="8.0dip" android:text="loading..." android:layout_below="@id/cFullNameTxt" android:layout_toEndOf="@id/cAvatarImg" />
-    <TextView android:textSize="10.0dip" android:textStyle="italic" android:id="@id/cDateTxt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="loading..." android:layout_alignTop="@id/cFullNameTxt" android:textAlignment="textEnd" android:layout_alignEnd="@id/cCommentTxt" />
-</RelativeLayout>
