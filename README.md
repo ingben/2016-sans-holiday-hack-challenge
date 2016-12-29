@@ -776,7 +776,19 @@ So the password is `open_sesame`. The reward is access to Santa's office.
 
 ![Santa's Office](screens/santas-office-1.png)
 
+In it, there is another terminal. When you interact with it, you can actually replay a part of the movie Wargames. The challenge here is simply to look up a good [transcript](https://github.com/theunamedguy/wargames/blob/master/TRANSCRIPT) of the movie or to watch the respective [YouTube clips](https://www.youtube.com/watch?v=LwDbgE54QYE&list=PLZbXA4lyCtqpGOS2KC1mAAKaGwbup-DQt&index=1).
 
+![Santa's Office Terminal](screens/santas-office-terminal.png)
+
+The flag you get is: `LOOK AT THE PRETTY LIGHTS`.
+
+Back in the workshop, I noticed that there is a second terminal.
+
+![Workshop Terminal 2](screens/workshop-terminal-2.png)
+
+Start the game `wumpus`. I just played it, until I finally got the Wumpus. The passphrase is `WUMPUS IS MISUNDERSTOOD`.
+
+![Workshop Terminal 2 Done](screens/workshop-terminal-2-done.png)
 
 ### 1) What is the secret message in Santa's tweets?
 
@@ -807,12 +819,18 @@ password=busyreindeer78
 
 ### 6) How did you open each terminal door and where had the villain imprisoned Santa?
 
-* Terminal in House 2
+* Terminal in Elf House 2
  * Realize via `sudo -l` that you can do `tcpdump` and `strings` as user `itchy`
  * A simple `strings` call gives you part 1: `santasli`
  * A `strings` call with `-e l` (for 16bit little endian) gives you part 2: `ttlehelper`
  * `tcpdump` helps to understand what traffic was captured and gives you a hint to the endianess thing
 
+* Terminal 1 in the Workshop
+ * Do a `find` to learn the directory structure
+ * Do `find . -iname '*for_*' -print0 | xargs -0 cat` to access the password
+
+* Terminal Santa's Office
+ * Use a transcript of Wargames / YoutTube to give the correct answers
 
 ## Part 4: My Gosh... It's Full of Holes
 
