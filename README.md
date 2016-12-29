@@ -45,9 +45,9 @@ for tweet in all_tweets:
     print tweet.text
 ```
 
-The code is a bit messy. Since the maximum count that you can specify is 200, we have to call the API twice. The `max_id` parameter ensures that we get only older tweets in the second call compared to the first one.
+The code is a bit messy. Since the maximum count that you can specify is 200, and Santa has done 350 tweets, we have to call the API twice. The `max_id` parameter ensures that we get only older tweets in the second call compared to the first one. At first, I overlooked this issue - getting an incomplete secret message.
 
-The result looks like so on the terminal:
+The correct result looks as follows on the terminal:
 
 ```
 SANTAELFHOHOHOCHRISTMASSANTACHRISTMASPEACEONEARTHCHRISTMASELFSANTAELFHOHOHO
@@ -579,7 +579,7 @@ Inspecting the file, we get the next flag: `username=guest`, `password=busyreind
 
 Next, we can have a look at the Cranberry Pi. As it turns out, we do have collected all the necessary pieces. We can return the quest to Holly Evergreen (right in front of the first house).
 
-![Shinny Upatree](screens/cranberry-pi-complete.png)
+![Cranberry Pi Complete](screens/cranberry-pi-complete.png)
 
 We also get a download link to the [Cranbian image](https://www.northpolewonderland.com/cranbian.img.zip). Since the next question is about the username of what seems to be a local account on the Cranbian image, it is a good idea to mount it. Earlier in the game, we already got a link to a [howto](https://pen-testing.sans.org/blog/2016/12/07/mount-a-raspberry-pi-file-system-image) for that.
 
@@ -645,6 +645,84 @@ Running...: 00:01:06:46
 Estimated.: 00:01:06:51
 ```
 
+In order to proceed, you need to tell the password to Holly Evergreen.
+
+![cranpi password](screens/cranpi-password.png)
+
+With that out of the way, we can use the Cranberry Pi to interact with the terminals. We start at the elf house number 2.
+
+![cranpi password](screens/house2-terminal.png)
+
+We find ourselves at a terminal, which seems to be a freshly spawned Docker container. The task is to find two parts of a passphrase inside the `/out.pcap` file.
+
+```
+scratchy@2a1a07f0bfaa:/$ ls -al out.pcap
+-r-------- 1 itchy itchy 1087929 Dec  2 15:05 out.pcap
+scratchy@2a1a07f0bfaa:/$ id
+uid=1001(scratchy) gid=1001(scratchy) groups=1001(scratchy)
+scratchy@2a1a07f0bfaa:/$
+```
+
+The first obstacle are the file permissions. We are the user `scratchy`, but the file can only be read by the user `itchy`. In such cases, it is a good idea to check `sudo` as well as to look for binaries with the `s-bit` set. `sudo -l` gives us some pretty useful information.
+
+```
+scratchy@2a1a07f0bfaa:/$ sudo -l
+sudo: unable to resolve host 2a1a07f0bfaa
+Matching Defaults entries for scratchy on 2a1a07f0bfaa:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+User scratchy may run the following commands on 2a1a07f0bfaa:
+    (itchy) NOPASSWD: /usr/sbin/tcpdump
+    (itchy) NOPASSWD: /usr/bin/strings
+scratchy@2a1a07f0bfaa:/$
+```
+
+As user `scratchy`, we are allowed to run the commands `tcpdump` and `strings` as the user `itchy`, without having to authenticate via a password. Perfect. Let's start with `strings`. Since we are operating in a somewhat limited environment (for example there is no `less`), we will print the output to a file and use `vim` to have a look at it.
+
+```
+scratchy@2a1a07f0bfaa:/$ sudo -u itchy strings out.pcap >/tmp/out.pcap.strings
+sudo: unable to resolve host 2a1a07f0bfaa
+scratchy@2a1a07f0bfaa:/$
+```
+
+We see some HTTP traffic. And already in line 32, we get the first half of the passphrase: `santasli`. From there on, you could almost guess the full passphrase. But we will do it the hard way and actually look for the second half. Things start to get trickier here, because the second half seems to be hidden in a binary file.
+
+```
+DGET /secondhalf.bin HTTP/1.1
+User-Agent: Wget/1.17.1 (darwin15.2.0)
+Accept: */*
+Accept-Encoding: identity
+Host: 192.168.188.130
+Connection: Keep-Alive
+ZAX
+THTTP/1.0 200 OK
+TServer: SimpleHTTP/0.6 Python/2.7.12+
+ZAX"
+,#"=X
+TDate: Fri, 02 Dec 2016 11:28:00 GMT
+Content-type: application/octet-stream
+ZAXr
+,#o=X
+UContent-Length: 1048097
+Last-Modified: Fri, 02 Dec 2016 11:26:12 GMT
+```
+
+It took me almost 3 hours to get behind that. I struggled with `tcpdump` for a long time. Trying to extract the binary file for further processing. After I did not make any reasonable progress, I noticed in the chat that another player was having issues with this particular challenge, too. The answer he got was basically: 'Do not overthink it. Read the manpages of your tools. Try harder.' Well - I did :).
+
+I had a look at the `tcpdump` again an noticed that the `User-Agent` suggest the binary was downloaded to an OS X El Capitan system. So maybe the binary file was also compiled for that specific architecture, or maybe another one? Be it as it may, this lead me to look at the manpage for `strings` again, where I noticed that you can specify the encoding with the `-e` option. Since Intel x86 processors use little endian, I started with the respective options. And I got a hit.
+
+```
+scratchy@681628e3e251:/$ sudo -u itchy strings -e l out.pcap
+sudo: unable to resolve host 681628e3e251
+part2:ttlehelper
+```
+
+So the password for the door in the same room is `santaslittlehelper`. Behind the door, you meet Alabaster Snowball.
+
+![Alabster Snowball](screens/alabaster-snowball-1.png)
+
+He tells you something about JSON, Burp and how to export request from Burp so that you can directly use them as a `cURL` command on the shell. Also, he mentions a dungeon (which I apparently have not found yet).
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBOUNTY
@@ -673,6 +751,13 @@ password=busyreindeer78
 `yummycookies`
 
 ### 6) How did you open each terminal door and where had the villain imprisoned Santa?
+
+* Terminal in House 2
+ * Realize via `sudo -l` that you can do `tcpdump` and `strings` as user `itchy`
+ * A simple `strings` call gives you part 1: `santasli`
+ * A `strings` call with `-e l` (for 16bit little endian) gives you part 2: `ttlehelper`
+ * `tcpdump` helps to understand what traffic was captured and gives you a hint to the endianess thing
+
 
 ## Part 4: My Gosh... It's Full of Holes
 
