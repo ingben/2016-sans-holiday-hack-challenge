@@ -723,6 +723,61 @@ So the password for the door in the same room is `santaslittlehelper`. Behind th
 
 He tells you something about JSON, Burp and how to export request from Burp so that you can directly use them as a `cURL` command on the shell. Also, he mentions a dungeon (which I apparently have not found yet).
 
+On to the next terminal. This time, the task is _'To open the door, find the passphrase file deep in the directories.'_ It is located in the building on the top of the mountain. This was easier than expected. A simple `find` lists all the directories.
+
+```
+*******************************************************************************
+*                                                                             *
+* To open the door, find the passphrase file deep in the directories.         *
+*                                                                             *
+*******************************************************************************
+elf@5f09ad2e85a2:~$ find
+.
+./.bashrc
+./.doormat
+./.doormat/.
+./.doormat/. /
+./.doormat/. / /\
+./.doormat/. / /\/\\
+./.doormat/. / /\/\\/Don't Look Here!
+./.doormat/. / /\/\\/Don't Look Here!/You are persistent, aren't you?
+./.doormat/. / /\/\\/Don't Look Here!/You are persistent, aren't you?/'
+./.doormat/. / /\/\\/Don't Look Here!/You are persistent, aren't you?/'/key_for_the_door
+.txt
+./.doormat/. / /\/\\/Don't Look Here!/You are persistent, aren't you?/cookbook
+./.doormat/. / /\/\\/Don't Look Here!/You are persistent, aren't you?/temp
+./.doormat/. / /\/\\/Don't Look Here!/secret
+./.doormat/. / /\/\\/Don't Look Here!/files
+./.doormat/. / /\/\\/holiday
+./.doormat/. / /\/\\/temp
+./.doormat/. / /\/santa
+./.doormat/. / /\/ls
+./.doormat/. / /opt
+./.doormat/. / /var
+./.doormat/. /bin
+./.doormat/. /not_here
+./.doormat/share
+./.doormat/temp
+./var
+./temp
+./.profile
+./.bash_logout
+elf@5f09ad2e85a2:~$
+```
+
+In order to access the file with the password, I choose to use the `print0` option of `find`, so that a binary 0 is used as delimiter (instead of space).
+
+```
+elf@5f09ad2e85a2:~$ find . -iname '*for_*' -print0 | xargs -0 cat
+key: open_sesame
+```
+
+So the password is `open_sesame`. The reward is access to Santa's office.
+
+![Santa's Office](screens/santas-office-1.png)
+
+
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBOUNTY
