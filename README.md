@@ -619,6 +619,32 @@ Now, a `cat` on the `mnt/etc/shadow` file reveals the password hash for the cran
 cranpi:$6$2AXLbEoG$zZlWSwrUSD02cm8ncL6pmaYY/39DUai3OGfnBbDNjtx2G99qKbhnidxinanEhahBINm/2YyjFihxg7tgc343b0:17140:0:99999:7:::
 ```
 
+This is a pretty strong hash, as `hashid` confirms:
+
+```
+hashid cranpi.hash
+--File 'cranpi.hash'--
+Analyzing '$6$2AXLbEoG$zZlWSwrUSD02cm8ncL6pmaYY/39DUai3OGfnBbDNjtx2G99qKbhnidxinanEhahBINm/2YyjFihxg7tgc343b0'
+[+] SHA-512 Crypt
+--End of file 'cranpi.hash'
+```
+
+Nevertheless, I gave it a try with John the Ripper and with hashcat. The cracking speed was - well - a desaster: `Speed/sec.: 441 plains, 441 words` for hashcat. John had a similar speed. All this on an early 2015 MacBook Pro with a 2,7 GHz Intel Core i5. The John the Ripper speed declined however during the course of the cracking. So I stopped the process. It took hashcat 66 minutes to crack the hash, giving us the answer to question 5: `yummycookies`.
+
+```
+$6$2AXLbEoG$zZlWSwrUSD02cm8ncL6pmaYY/39DUai3OGfnBbDNjtx2G99qKbhnidxinanEhahBINm/2YyjFihxg7tgc343b0:yummycookies
+
+All hashes have been recovered
+
+Input.Mode: Dict (02_rockyou.txt)
+Index.....: 1/5 (segment), 3627172 (words), 33550343 (bytes)
+Recovered.: 1/1 hashes, 1/1 salts
+Speed/sec.: - plains, 452 words
+Progress..: 1814156/3627172 (50.02%)
+Running...: 00:01:06:46
+Estimated.: 00:01:06:51
+```
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBOUNTY
@@ -643,6 +669,8 @@ password=busyreindeer78
 ## Part 3: A Fresh-Baked Holiday Pi
 
 ### 5) What is the password for the "cranpi" account on the Cranberry Pi system?
+
+`yummycookies`
 
 ### 6) How did you open each terminal door and where had the villain imprisoned Santa?
 
