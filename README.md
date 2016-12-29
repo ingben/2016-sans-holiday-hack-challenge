@@ -581,7 +581,43 @@ Next, we can have a look at the Cranberry Pi. As it turns out, we do have collec
 
 ![Shinny Upatree](screens/cranberry-pi-complete.png)
 
-We get a download link to the [Cranbian image](https://www.northpolewonderland.com/cranbian.img.zip), where we should have a look at.
+We also get a download link to the [Cranbian image](https://www.northpolewonderland.com/cranbian.img.zip). Since the next question is about the username of what seems to be a local account on the Cranbian image, it is a good idea to mount it. Earlier in the game, we already got a link to a [howto](https://pen-testing.sans.org/blog/2016/12/07/mount-a-raspberry-pi-file-system-image) for that.
+
+Unfortunately, the `fdisk` utility on OS X does not work the way that is mentioned in the howto. So I had to switch to a Kali VM for the first time during this holiday hack.
+
+```
+fdisk -l cranbian-jessie.img
+Disk cranbian-jessie.img: 1.3 GiB, 1389363200 bytes, 2713600 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x5a7089a1
+
+Device               Boot  Start     End Sectors  Size Id Type
+cranbian-jessie.img1        8192  137215  129024   63M  c W95 FAT32 (LBA)
+cranbian-jessie.img2      137216 2713599 2576384  1.2G 83 Linux
+```
+
+In order to mount the Linux image, we have to calculate the offset in bytes.
+
+```
+echo $((512*137216))
+70254592
+```
+
+And then mount the image.
+
+```
+mount -v -o offset=70254592 cranbian-jessie.img mnt/
+mount: /dev/loop0 mounted on ... ./mnt
+```
+
+Now, a `cat` on the `mnt/etc/shadow` file reveals the password hash for the cranpi user.
+
+```
+cranpi:$6$2AXLbEoG$zZlWSwrUSD02cm8ncL6pmaYY/39DUai3OGfnBbDNjtx2G99qKbhnidxinanEhahBINm/2YyjFihxg7tgc343b0:17140:0:99999:7:::
+```
 
 ### 1) What is the secret message in Santa's tweets?
 
