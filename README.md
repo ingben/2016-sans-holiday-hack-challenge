@@ -577,6 +577,12 @@ grep -C3 -rin "password" .
 
 Inspecting the file, we get the next flag: `username=guest`, `password=busyreindeer78`.
 
+Next, we can have a look at the Cranberry Pi. As it turns out, we do have collected all the necessary pieces. We can return the quest to Holly Evergreen (right in front of the first house).
+
+![Shinny Upatree](screens/cranberry-pi-complete.png)
+
+We get a download link to the [Cranbian image](https://www.northpolewonderland.com/cranbian.img.zip), where we should have a look at.
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBOUNTY
