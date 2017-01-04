@@ -790,6 +790,16 @@ Start the game `wumpus`. I just played it, until I finally got the Wumpus. The p
 
 ![Workshop Terminal 2 Done](screens/workshop-terminal-2-done.png)
 
+With the passphrase, we can pass the door next to the terminal.
+
+![DFER](screens/dfer-1.png)
+
+Right now, I could not find anything of interest in it. Next, we will check out the terminal at the train.
+
+![Train Terminal 1](screens/train-terminal-1.png)
+
+![Train Terminal 2](screens/train-terminal-2.png)
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBOUNTY
@@ -828,6 +838,9 @@ password=busyreindeer78
 * Terminal 1 in the Workshop
  * Do a `find` to learn the directory structure
  * Do `find . -iname '*for_*' -print0 | xargs -0 cat` to access the password
+
+* Terminal 2 in the Workshop
+ * I literally just played the Wumpus game.
 
 * Terminal Santa's Office
  * Use a transcript of Wargames / YoutTube to give the correct answers
