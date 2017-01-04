@@ -837,6 +837,19 @@ And off we go, back in time to 1978.
 
 ![Time Travel 2](screens/time-travel-2.png)
 
+> &token=335BC464-BB2C-11E6-A4A6-CEC0C932CE01
+> 10.240.0.19
+
+While searching the place, you will finally find Santa in the back room of the train station.
+
+![Found Santa](screens/santa-1.png)
+
+Plus - see some credits.
+
+![Credits](screens/credits-1.png)
+
+Unfortunately, he does not remember who kidnapped him. At this point, I was a little lost. Having a look at a reddit thread, it occurred to me that I must have missed a big portion of the challenges - as people were talking about web security stuff. Furthermore, I had no clue as to where to make progress for questions 7 and 8.
+
 
 ### 1) What is the secret message in Santa's tweets?
 
