@@ -26,7 +26,7 @@ This is a write-up for the [2016 SANS Holiday Hack Challenge](https://holidayhac
 
 ## Step by step guide
 
-You start of in a room. Talk to Jessica and Josh to get some info and the first
+You start in a room. Talk to Jessica and Josh to get some info and the first
 two quests. Browse the room for Santa's business card (it is lying in front of the
 fireplace).
 
