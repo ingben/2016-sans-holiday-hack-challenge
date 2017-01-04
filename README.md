@@ -2,9 +2,9 @@
 
 ## About
 
-This is a write-up for the [2016 SANS Holiday Hack Challenge](https://holidayhackchallenge.com/2016/index.html).
+This is a write-up for the [2016 SANS Holiday Hack Challenge](https://holidayhackchallenge.com/2016/index.html). What follows is a step by step guide. A summary of answers to the questions is given at the end of the document.
 
-## Part 1: A Most Curious Business Card
+## Step by step guide
 
 You start of in a room. Talk to Jessica and Josh to get some info and the first
 two quests. Browse the room for Santa's business card (it is lying in front of the
@@ -921,6 +921,8 @@ Nmap done: 1 IP address (1 host up) scanned in 15.29 seconds
 It now started to become juicy. After all, we got a full blown git repo! But - well I was running out of time. So I had to stop here. *sadface*
 
 Thanks to you for the entertaining challenge.
+
+## Part 1: A Most Curious Business Card
 
 ### 1) What is the secret message in Santa's tweets?
 
