@@ -800,6 +800,44 @@ Right now, I could not find anything of interest in it. Next, we will check out 
 
 ![Train Terminal 2](screens/train-terminal-2.png)
 
+If we set the brakes to off, and then try to start the train, we are asked for a password which we do not know. The hint to make progress is buried in the `HELP` message.
+
+> **HELP** brings you to this file.  If it's not here, this console cannot do it, unLESS you know something I don't.
+
+So it seems that the `less` command is executed to display the message. Which is neat, cause we can do SHELL commands this way by leveraging the `! <command>` feature of `less` [as described in the mangpage](https://linux.die.net/man/1/less). An `ls -al` gives the following.
+
+```
+menu:main> HELP
+total 40
+drwxr-xr-x 2 conductor conductor  4096 Dec 10 19:39 .
+drwxr-xr-x 6 root      root       4096 Dec 10 19:39 ..
+-rw-r--r-- 1 conductor conductor   220 Nov 12  2014 .bash_logout
+-rw-r--r-- 1 conductor conductor  3515 Nov 12  2014 .bashrc
+-rw-r--r-- 1 conductor conductor   675 Nov 12  2014 .profile
+-rwxr-xr-x 1 root      root      10528 Dec 10 19:36 ActivateTrain
+-rw-r--r-- 1 root      root       1506 Dec 10 19:36 TrainHelper.txt
+-rwxr-xr-x 1 root      root       1588 Dec 10 19:36 Train_Console
+!done  (press RETURN)
+```
+
+We get the password by doing a `grep -in pass Train_Console`.
+
+```
+menu:main> HELP
+7:PASS="24fb3e89ce2aa0ea422c3d511d40dd84"
+72:                             read -s -p "Enter Password: " password
+73:                             [ "$password" == "$PASS" ] && QUEST_UID=$QUEST_UID ./Act
+ivateTrain || echo "Access denied"
+!done  (press RETURN)
+```
+
+And off we go, back in time to 1978.
+
+![Time Travel 1](screens/time-travel-1.png)
+
+![Time Travel 2](screens/time-travel-2.png)
+
+
 ### 1) What is the secret message in Santa's tweets?
 
 BUGBOUNTY
