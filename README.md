@@ -848,8 +848,79 @@ Plus - see some credits.
 
 ![Credits](screens/credits-1.png)
 
-Unfortunately, he does not remember who kidnapped him. At this point, I was a little lost. Having a look at a reddit thread, it occurred to me that I must have missed a big portion of the challenges - as people were talking about web security stuff. Furthermore, I had no clue as to where to make progress for questions 7 and 8.
+Unfortunately, he does not remember who kidnapped him. In order to tackle questions 7 and 8, we have to have a look at the SantaGram app again (as clearly point out in the story text on the website). Going through the decompiled app, searching for URLs lead me to the file `./res/values/strings.xml`.
 
+```xml
+<string name="analytics_launch_url">https://analytics.northpolewonderland.com/report.php?type=launch</string>
+<string name="analytics_usage_url">https://analytics.northpolewonderland.com/report.php?type=usage</string>
+<string name="appVersion">4.2</string>
+<string name="app_name">SantaGram</string>
+<string name="appbar_scrolling_view_behavior">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+<string name="banner_ad_url">http://ads.northpolewonderland.com/affiliate/C9E380C8-2244-41E3-93A3-D6C6700156A5</string>
+<string name="bottom_sheet_behavior">android.support.design.widget.BottomSheetBehavior</string>
+<string name="character_counter_pattern">%1$d / %2$d</string>
+<string name="debug_data_collection_url">http://dev.northpolewonderland.com/index.php</string>
+<string name="debug_data_enabled">false</string>
+<string name="dungeon_url">http://dungeon.northpolewonderland.com/</string>
+<string name="exhandler_url">http://ex.northpolewonderland.com/exception.php</string>
+<string name="title_activity_comments">Comments</string>
+```
+
+Which gave us some new targets to attack.
+
+```
+➜  SantaGram_4.2 git:(master) ✗ dig +short analytics.northpolewonderland.com
+104.198.252.157
+➜  SantaGram_4.2 git:(master) ✗ dig +short ads.northpolewonderland.com
+104.198.221.240
+➜  SantaGram_4.2 git:(master) ✗ dig +short dev.northpolewonderland.com
+35.184.63.245
+➜  SantaGram_4.2 git:(master) ✗ dig +short dungeon.northpolewonderland.com
+35.184.47.139
+➜  SantaGram_4.2 git:(master) ✗ dig +short ex.northpolewonderland.com
+104.154.196.33
+```
+
+After checking each of the IP address with the oracle (Tom Hessman), we had the permission to test.
+
+### analytics.northpolewonderland.com 104.198.252.157
+
+```
+nmap 104.198.252.157 --script=default
+
+
+Starting Nmap 7.31 ( https://nmap.org ) at 2017-01-04 13:55 CET
+Nmap scan report for 157.252.198.104.bc.googleusercontent.com (104.198.252.157)
+Host is up (0.13s latency).
+Not shown: 998 filtered ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+| ssh-hostkey:
+|   1024 5d:5c:37:9c:67:c2:40:94:b0:0c:80:63:d4:ea:80:ae (DSA)
+|   2048 f2:25:e1:9f:ff:fd:e3:6e:94:c6:76:fb:71:01:e3:eb (RSA)
+|_  256 4c:04:e4:25:7f:a1:0b:8c:12:3c:58:32:0f:dc:51:bd (ECDSA)
+443/tcp open  https
+| http-git:
+|   104.198.252.157:443/.git/
+|     Git repository found!
+|     Repository description: Unnamed repository; edit this file 'description' to name the...
+|_    Last commit message: Finishing touches (style, css, etc)
+| http-title: Sprusage Usage Reporter!
+|_Requested resource was login.php
+| ssl-cert: Subject: commonName=analytics.northpolewonderland.com
+| Subject Alternative Name: DNS:analytics.northpolewonderland.com
+| Not valid before: 2016-12-07T17:35:00
+|_Not valid after:  2017-03-07T17:35:00
+|_ssl-date: TLS randomness does not represent time
+| tls-nextprotoneg:
+|_  http/1.1
+
+Nmap done: 1 IP address (1 host up) scanned in 15.29 seconds
+```
+
+It now started to become juicy. After all, we got a full blown git repo! But - well I was running out of time. So I had to stop here. *sadface*
+
+Thanks to you for the entertaining challenge.
 
 ### 1) What is the secret message in Santa's tweets?
 
