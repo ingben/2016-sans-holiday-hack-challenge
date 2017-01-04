@@ -1,5 +1,25 @@
 # 2016-sans-holiday-hack-challenge
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [2016-sans-holiday-hack-challenge](#2016-sans-holiday-hack-challenge)
+	- [About](#about)
+	- [Step by step guide](#step-by-step-guide)
+	- [Part 1: A Most Curious Business Card](#part-1-a-most-curious-business-card)
+		- [1) What is the secret message in Santa's tweets?](#1-what-is-the-secret-message-in-santas-tweets)
+		- [2) What is inside the ZIP file distributed by Santa's team?](#2-what-is-inside-the-zip-file-distributed-by-santas-team)
+	- [Part 2: Awesome Package Konveyance](#part-2-awesome-package-konveyance)
+		- [3) What username and password are embedded in the APK file?](#3-what-username-and-password-are-embedded-in-the-apk-file)
+		- [4) What is the name of the audible component (audio file) in the SantaGram APK file?](#4-what-is-the-name-of-the-audible-component-audio-file-in-the-santagram-apk-file)
+	- [Part 3: A Fresh-Baked Holiday Pi](#part-3-a-fresh-baked-holiday-pi)
+		- [5) What is the password for the "cranpi" account on the Cranberry Pi system?](#5-what-is-the-password-for-the-cranpi-account-on-the-cranberry-pi-system)
+		- [6) How did you open each terminal door and where had the villain imprisoned Santa?](#6-how-did-you-open-each-terminal-door-and-where-had-the-villain-imprisoned-santa)
+	- [Part 4: My Gosh... It's Full of Holes](#part-4-my-gosh-its-full-of-holes)
+		- [7) ONCE YOU GET APPROVAL ...](#7-once-you-get-approval-)
+		- [8) What are the names of the audio files you discovered from each system above?](#8-what-are-the-names-of-the-audio-files-you-discovered-from-each-system-above)
+
+<!-- /TOC -->
+
 ## About
 
 This is a write-up for the [2016 SANS Holiday Hack Challenge](https://holidayhackchallenge.com/2016/index.html). What follows is a step by step guide. A summary of answers to the questions is given at the end of the document.
@@ -883,7 +903,7 @@ Which gave us some new targets to attack.
 
 After checking each of the IP address with the oracle (Tom Hessman), we had the permission to test.
 
-### analytics.northpolewonderland.com 104.198.252.157
+> analytics.northpolewonderland.com 104.198.252.157
 
 ```
 nmap 104.198.252.157 --script=default
@@ -971,18 +991,6 @@ password=busyreindeer78
 
 ## Part 4: My Gosh... It's Full of Holes
 
-### 7) ONCE YOU GET APPROVAL OF GIVEN IN-SCOPE TARGET IP ADDRESSES FROM TOM HESSMAN AT THE NORTH POLE, ATTEMPT TO REMOTELY EXPLOIT EACH OF THE FOLLOWING TARGETS:
+### 7) ONCE YOU GET APPROVAL ...
 
-The Mobile Analytics Server (via credentialed login access)
-The Dungeon Game
-The Debug Server
-The Banner Ad Server
-The Uncaught Exception Handler Server
-The Mobile Analytics Server (post authentication)
-For each of those six items, which vulnerabilities did you discover and exploit?
-
-REMEMBER, YOU ARE AUTHORIZED TO ATTACK ONLY THE IP ADDRESSES THAT TOM HESSMAN IN THE NORTH POLE EXPLICITLY ACKNOWLEDGES AS "IN SCOPE." ATTACK NO OTHER SYSTEMS ASSOCIATED WITH THE HOLIDAY HACK CHALLENGE.
-
-### 8) What are the names of the audio files you discovered from each system above? There are a total of SEVEN audio files (one from the original APK in Question 4, plus one for each of the six items in the bullet list above.)
-
-Please note: Although each system is remotely exploitable, we DO NOT expect every participant to compromise every element of the SantaGram infrastructure. Gain access to the ones you can. Although we will give special consideration to entries that successfully compromise all six vulnerabilities and retrieve their audio files, we happily accept partial answers and point out that they too are eligible for any of the prizes.
+### 8) What are the names of the audio files you discovered from each system above?
