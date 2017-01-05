@@ -979,6 +979,25 @@ PORT   STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 13.81 seconds
 ```
 
+### Port 80
+
+The web page provides a login form. The known passwords do not work. Looking at the source code of the pages, we learn that this might be a Meteor application.
+
+![Ad Nauseam](screens/ad-nauseam-1.png)
+
+So this means some research on it is needed, as I have no experience with Meteor at all. The [link](https://pen-testing.sans.org/blog/2016/12/06/mining-meteor) provided earlier to us has all the information you need.
+
+Read the blog post, install TamperMonkey and the MeteorMiner script. I had to disable my ad blocker for it to work properly.
+
+With MeteorMiner, you will see a 'hidden' route `/admin/quotes`. The resource occurs to be protected, but this is only implemented client-side. You can access the content like so:
+
+```
+Meteor.connection._mongo_livedata_collections['home_quotes'].find().fetch()[4]
+Object {_id: "zPR5TpxB5mcAH3pYk", index: 4, quote: "Just Ad It!", hidden: true, audio: "/ofdAR4UYRaeNxMg/discombobulatedaudio5.mp3"}
+```
+
+You can now download the file `discombobulatedaudio5.mp3` from http://ads.northpolewonderland.com/ofdAR4UYRaeNxMg/discombobulatedaudio5.mp3.
+
 > dev.northpolewonderland.com 35.184.63.245
 
 ```
