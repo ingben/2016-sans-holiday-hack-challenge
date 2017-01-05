@@ -903,7 +903,7 @@ Which gave us some new targets to attack.
 
 After checking each of the IP address with the oracle (Tom Hessman), we had the permission to test.
 
-> analytics.northpolewonderland.com 104.198.252.157
+## analytics.northpolewonderland.com 104.198.252.157
 
 ```
 nmap 104.198.252.157 --script=default
@@ -938,9 +938,116 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 15.29 seconds
 ```
 
-It now started to become juicy. After all, we got a full blown git repo! But - well I was running out of time. So I had to stop here. *sadface*
+### login page
 
-Thanks to you for the entertaining challenge.
+Recall the username/password from question 2, which is actually used to authenticate against the analytics service. Login, then simply use the download link `MP3` to get the file `discombobulatedaudio2.mp3`.
+
+![Sprusage Login](screens/sprusage-login.png)
+
+![Sprusage MP3](screens/sprusage-mp3.png)
+
+### git repo
+
+Somebody left a git repo on the web server. You cannot directly clone it, but you can get it as follows:
+```
+wget -r --no-parent https://analytics.northpolewonderland.com/.git/
+cd analytics.northpolewonderland.com
+git checkout .
+```
+
+Since I already got the audio file, I stopped further digging into it.
+
+> ads.northpolewonderland.com 104.198.221.240
+
+```
+nmap --script=default 104.198.221.240
+
+
+Starting Nmap 7.31 ( https://nmap.org ) at 2017-01-05 18:00 CET
+Nmap scan report for 240.221.198.104.bc.googleusercontent.com (104.198.221.240)
+Host is up (0.13s latency).
+Not shown: 998 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+| ssh-hostkey:
+|   1024 cf:4c:e0:20:6d:e7:c6:b1:6b:9f:ac:75:45:16:b1:93 (DSA)
+|   2048 b9:a4:df:1e:34:0f:58:3e:2c:b7:e6:c6:77:0f:f5:3b (RSA)
+|_  256 02:ec:fc:80:c0:fc:76:b3:cd:d2:64:39:af:3c:13:b3 (ECDSA)
+80/tcp open  http
+|_http-title: Ad Nauseam - Stupid Ads for Stupid People
+
+Nmap done: 1 IP address (1 host up) scanned in 13.81 seconds
+```
+
+> dev.northpolewonderland.com 35.184.63.245
+
+```
+nmap --script=default 35.184.63.245
+
+
+Starting Nmap 7.31 ( https://nmap.org ) at 2017-01-05 18:01 CET
+Nmap scan report for 245.63.184.35.bc.googleusercontent.com (35.184.63.245)
+Host is up (0.13s latency).
+Not shown: 998 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+| ssh-hostkey:
+|   1024 79:a9:ac:53:73:c7:87:69:61:c8:6f:7c:cd:e4:5d:f2 (DSA)
+|   2048 f2:fb:1c:aa:92:78:ae:04:7d:19:f9:74:e8:91:00:b6 (RSA)
+|_  256 5e:05:a6:1b:76:72:74:2b:9f:a5:e5:06:f8:fa:4f:39 (ECDSA)
+80/tcp open  http
+|_http-title: Site doesn't have a title (application/json).
+
+Nmap done: 1 IP address (1 host up) scanned in 13.95 seconds
+```
+
+> dungeon.northpolewonderland.com 35.184.47.139
+
+```
+nmap --script=default 35.184.47.139
+
+
+Starting Nmap 7.31 ( https://nmap.org ) at 2017-01-05 18:01 CET
+Nmap scan report for 139.47.184.35.bc.googleusercontent.com (35.184.47.139)
+Host is up (0.13s latency).
+Not shown: 994 closed ports
+PORT      STATE    SERVICE
+22/tcp    open     ssh
+| ssh-hostkey:
+|   1024 c0:5a:84:94:cf:6f:b9:23:c8:23:32:66:2d:e2:e7:6e (DSA)
+|   2048 c4:cf:f2:c3:c5:63:26:bb:34:ab:b6:fe:a0:73:91:49 (RSA)
+|_  256 78:4a:3e:2f:24:d1:14:eb:6e:53:7d:5a:6c:0a:42:af (ECDSA)
+80/tcp    open     http
+|_http-title: About Dungeon
+135/tcp   filtered msrpc
+139/tcp   filtered netbios-ssn
+179/tcp   filtered bgp
+11111/tcp open     vce
+
+Nmap done: 1 IP address (1 host up) scanned in 14.43 seconds
+```
+
+> ex.northpolewonderland.com 104.154.196.33
+
+```
+nmap --script=default 104.154.196.33
+
+
+Starting Nmap 7.31 ( https://nmap.org ) at 2017-01-05 18:02 CET
+Nmap scan report for 33.196.154.104.bc.googleusercontent.com (104.154.196.33)
+Host is up (0.13s latency).
+Not shown: 998 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+| ssh-hostkey:
+|   1024 46:40:e3:46:26:8a:af:ee:11:d6:40:91:5a:b7:81:78 (DSA)
+|   2048 8f:24:b7:32:1d:b8:7e:80:02:b5:d5:ae:3a:ee:f5:dc (RSA)
+|_  256 f2:ca:f2:ae:a9:08:2f:4d:47:e2:b0:06:b2:24:2d:b9 (ECDSA)
+80/tcp open  http
+|_http-title: 403 Forbidden
+
+Nmap done: 1 IP address (1 host up) scanned in 14.09 seconds
+```
 
 ## Part 1: A Most Curious Business Card
 
