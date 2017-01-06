@@ -986,7 +986,7 @@ In the response, you will get this buried inside of the bug table.
 
 You can `base64 -D` the file afterwards.
 
-> ads.northpolewonderland.com 104.198.221.240
+## ads.northpolewonderland.com 104.198.221.240
 
 ```
 nmap --script=default 104.198.221.240
@@ -1027,7 +1027,7 @@ Object {_id: "zPR5TpxB5mcAH3pYk", index: 4, quote: "Just Ad It!", hidden: true, 
 
 You can now download the file `discombobulatedaudio5.mp3` from http://ads.northpolewonderland.com/ofdAR4UYRaeNxMg/discombobulatedaudio5.mp3.
 
-> dev.northpolewonderland.com 35.184.63.245
+## dev.northpolewonderland.com 35.184.63.245
 
 ```
 nmap --script=default 35.184.63.245
@@ -1094,7 +1094,7 @@ Note that there is an additional parameter in the response `"verbose":false`. We
 
 Looking at the metadata (on Mac, just right click on the file, then `Get Info`), this is title 4. The numbers from the other files match (e.g. `discombobulatedaudio1` is title 1). So I renamed the file to `discombobulatedaudio4.mp3`.
 
-> dungeon.northpolewonderland.com 35.184.47.139
+## dungeon.northpolewonderland.com 35.184.47.139
 
 ```
 nmap --script=default 35.184.47.139
@@ -1141,7 +1141,7 @@ There is a small wrapped mailbox here.
 I did not manage to complete the game. I had a peak at a write up and learned that when completing the game, you need to send an email to `peppermint@northpolewonderland.com`. She replies to you with the file `discombobulatedaudio3.mp3`.
 
 
-> ex.northpolewonderland.com 104.154.196.33
+## ex.northpolewonderland.com 104.154.196.33
 
 ```
 nmap --script=default 104.154.196.33
