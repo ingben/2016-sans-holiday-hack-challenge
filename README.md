@@ -1,10 +1,23 @@
 # 2016-sans-holiday-hack-challenge
 
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [2016-sans-holiday-hack-challenge](#2016-sans-holiday-hack-challenge)
 	- [About](#about)
 	- [Step by step guide](#step-by-step-guide)
+	- [analytics.northpolewonderland.com 104.198.252.157](#analyticsnorthpolewonderlandcom-104198252157)
+		- [login page](#login-page)
+		- [git repo](#git-repo)
+		- [post authentication exploit](#post-authentication-exploit)
+	- [ads.northpolewonderland.com 104.198.221.240](#adsnorthpolewonderlandcom-104198221240)
+		- [Port 80](#port-80)
+	- [dev.northpolewonderland.com 35.184.63.245](#devnorthpolewonderlandcom-3518463245)
+		- [Port 80](#port-80)
+	- [dungeon.northpolewonderland.com 35.184.47.139](#dungeonnorthpolewonderlandcom-3518447139)
+		- [Port 80](#port-80)
+		- [Port 11111](#port-11111)
+	- [ex.northpolewonderland.com 104.154.196.33](#exnorthpolewonderlandcom-10415419633)
 	- [Part 1: A Most Curious Business Card](#part-1-a-most-curious-business-card)
 		- [1) What is the secret message in Santa's tweets?](#1-what-is-the-secret-message-in-santas-tweets)
 		- [2) What is inside the ZIP file distributed by Santa's team?](#2-what-is-inside-the-zip-file-distributed-by-santas-team)
@@ -17,6 +30,9 @@
 	- [Part 4: My Gosh... It's Full of Holes](#part-4-my-gosh-its-full-of-holes)
 		- [7) ONCE YOU GET APPROVAL ...](#7-once-you-get-approval-)
 		- [8) What are the names of the audio files you discovered from each system above?](#8-what-are-the-names-of-the-audio-files-you-discovered-from-each-system-above)
+	- [Part 5: Discombobulated Audio](#part-5-discombobulated-audio)
+		- [9) Who is the villain behind the nefarious plot.](#9-who-is-the-villain-behind-the-nefarious-plot)
+		- [10) Why had the villain abducted Santa?](#10-why-had-the-villain-abducted-santa)
 
 <!-- /TOC -->
 
@@ -1241,7 +1257,7 @@ Right at the top of the file, we find the hint to the next `mp3` file.
 ```php
 <?php
 
-# Audio file from Discombobulator in webroot: discombobulated-audio-6-XyzE3N9YqKNH.mp3
+// Audio file from Discombobulator in webroot: discombobulated-audio-6-XyzE3N9YqKNH.mp3
 ```
 
 Let's get it.
